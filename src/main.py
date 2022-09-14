@@ -49,7 +49,19 @@ async def update_artist(artist_id: str, artist_request: schemas.UpdateArtistRequ
         raise HTTPException(status_code=400, detail="Artist not found with the given ID")
 
 
-@app.post('/artists', tags=["Artist"],response_model=schemas.Artist,status_code=201)
+@app.delete('/api/artists/{artist_id}', tags=["Item"])
+async def delete_item(artist_id: str, db: Session = Depends(get_db)):
+    """
+    Delete the ARtist with the given ID provided by User stored in database
+    """
+    db_artist = ArtistRepo.fetch_by_id(db, artist_id)
+    if db_artist is None:
+        raise HTTPException(status_code=404, detail="Artist not found with the given ID")
+    await ArtistRepo.delete(db, artist_id)
+    return "Artist deleted successfully!"
+
+
+@app.post('/api/artists', tags=["Artist"], response_model=schemas.Artist,status_code=201)
 async def create_item(artist_request: schemas.CreateArtistRequest, db: Session = Depends(get_db)):
     """
     Create an Artist and store it in the database
