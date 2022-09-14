@@ -10,8 +10,8 @@ from sqlalchemy.orm import Session
 import uvicorn
 from typing import List
 
-app = FastAPI(title="Sample FastAPI Application",
-              description="Sample FastAPI Application with Swagger and Sqlalchemy",
+app = FastAPI(title="Bakeoff FastAPI Application",
+              description="FastAPI Application with Swagger and Sqlalchemy",
               version="1.0.0",)
 
 models.Base.metadata.create_all(bind=engine)
