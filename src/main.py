@@ -9,6 +9,7 @@ from repositories import ArtistRepo
 from sqlalchemy.orm import Session
 import uvicorn
 from typing import List
+from variables import BakeOffEnvironmentVariables
 
 app = FastAPI(title="Bakeoff FastAPI Application",
               description="FastAPI Application with Swagger and Sqlalchemy",
@@ -82,4 +83,5 @@ def get_all_artists(db: Session = Depends(get_db)):
 
 
 if __name__ == "__main__":
-    uvicorn.run("main:app", port=9000, reload=True)
+    api_port = BakeOffEnvironmentVariables.api_port
+    uvicorn.run("main:app", port=api_port, reload=False)

@@ -41,8 +41,17 @@ For now, to start the app
     Alternative 
     http://localhost:9000/redoc
 
+## The application expects the following environment variables to be set, otherwise it will use defaults:
+    db_host = os.environ.get('DB_HOST', 'localhost')
+    db_port = os.environ.get('DB_PORT', '5432')
+    db_name = os.environ.get('DB_NAME', 'artist_db')
+    db_user = os.environ.get('DB_USER', 'root')
+    db_pass = os.environ.get('DB_PASS', 'root')
+    api_port = os.environ.get('PORT', '9000')
 
+Note the database defaults correspond to the values in the docker_compose.yml
 
 # Trying to run pydantic-docs datamodel code generator on the openapi.json
 
 model1.py is generated off of the above...  It is not currently being used in the code.
+
