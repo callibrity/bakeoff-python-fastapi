@@ -27,6 +27,8 @@ class ArtistRepo:
         db.delete(db_artist)
         db.commit()
 
-    async def update(db: Session,artist_data):
-        db.merge(artist_data)
+    async def update(db: Session, artist: schemas.UpdateArtistRequest):
+        db_artist = models.Artist(id=artist.id, name=artist.name, genre=artist.genre)
+        db_updated_artist = db.merge(db_artist)
         db.commit()
+        return db_updated_artist

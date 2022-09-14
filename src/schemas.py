@@ -1,5 +1,7 @@
-from typing import List, Optional
+from __future__ import annotations
+
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel
 
@@ -11,11 +13,6 @@ class Genre(str, Enum):
     Western = 'Western'
 
 
-class ArtistBase(BaseModel):
-    id: Optional[str] = None
-    name: str = None
-    genre: Genre = None
-
 class Artist(BaseModel):
     id: Optional[str] = None
     name: Optional[str] = None
@@ -24,10 +21,12 @@ class Artist(BaseModel):
     class Config:
         orm_mode = True
 
-class CreateArtistRequest(ArtistBase):
-    pass
+
+class CreateArtistRequest(BaseModel):
+    name: str
+    genre: Genre
+
 
 class UpdateArtistRequest(BaseModel):
     name: str
     genre: Genre
-
