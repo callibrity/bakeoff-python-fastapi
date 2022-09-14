@@ -40,3 +40,9 @@ For now, to start the app
     ( fastapi is built on top of OpenAPI standard, alt. will contain JSON schemas of our Pydantic models )
     Alternative 
     http://localhost:9000/redoc
+
+
+
+# Trying to run pydantic-docs datamodel code generator on the openapi.json
+
+model1.py is generated off of the above...  It is not currently being used in the code.

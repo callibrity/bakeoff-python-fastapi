@@ -1,0 +1,222 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "Bakeoff API",
+    "description": "Simple REST API",
+    "version": "1.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:9000",
+      "description": "Generated server url"
+    }
+  ],
+  "paths": {
+    "/api/artists/{id}": {
+      "get": {
+        "tags": [
+          "artist-resource"
+        ],
+        "operationId": "getArtistById",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Artist"
+                }
+              }
+            }
+          }
+        }
+      },
+      "put": {
+        "tags": [
+          "artist-resource"
+        ],
+        "operationId": "updateArtist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateArtistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Artist"
+                }
+              }
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "artist-resource"
+        ],
+        "operationId": "deleteArtist",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/api/artists": {
+      "get": {
+        "tags": [
+          "artist-resource"
+        ],
+        "operationId": "listArtists",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/Artist"
+                  }
+                }
+              }
+            }
+          }
+        }
+      },
+      "post": {
+        "tags": [
+          "artist-resource"
+        ],
+        "operationId": "createArtist",
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateArtistRequest"
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "OK",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Artist"
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "UpdateArtistRequest": {
+        "required": [
+          "genre",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string",
+            "enum": [
+              "Rock",
+              "Pop",
+              "Country",
+              "Western"
+            ]
+          }
+        }
+      },
+      "Artist": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string",
+            "enum": [
+              "Rock",
+              "Pop",
+              "Country",
+              "Western"
+            ]
+          }
+        }
+      },
+      "CreateArtistRequest": {
+        "required": [
+          "genre",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string"
+          },
+          "genre": {
+            "type": "string",
+            "enum": [
+              "Rock",
+              "Pop",
+              "Country",
+              "Western"
+            ]
+          }
+        }
+      }
+    }
+  }
+}

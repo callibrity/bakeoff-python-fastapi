@@ -1,33 +1,29 @@
-from typing import List, Optional
+from __future__ import annotations
+
 from enum import Enum
+from typing import Optional
 
 from pydantic import BaseModel
 
 
-class Genre(str, Enum):
+class Genre(Enum):
     Rock = 'Rock'
     Pop = 'Pop'
     Country = 'Country'
     Western = 'Western'
 
 
-class ArtistBase(BaseModel):
-    id: Optional[str] = None
-    name: str = None
-    genre: Genre = None
+class UpdateArtistRequest(BaseModel):
+    name: str
+    genre: Genre
+
 
 class Artist(BaseModel):
     id: Optional[str] = None
     name: Optional[str] = None
     genre: Optional[Genre] = None
 
-    class Config:
-        orm_mode = True
 
-class CreateArtistRequest(ArtistBase):
-    pass
-
-class UpdateArtistRequest(BaseModel):
+class CreateArtistRequest(BaseModel):
     name: str
     genre: Genre
-

@@ -102,3 +102,6 @@ ENV/
 
 #Intelli
 .idea
+
+# dev venv
+/py-api

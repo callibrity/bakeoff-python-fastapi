@@ -4,10 +4,10 @@ from fastapi.responses import JSONResponse
 from db import get_db, engine
 import models as models
 import schemas as schemas
-from repositories import GenreRepo
+from repositories import ArtistRepo
 from sqlalchemy.orm import Session
 import uvicorn
-from typing import List,Optional
+from typing import List
 
 app = FastAPI(title="Sample FastAPI Application",
               description="Sample FastAPI Application with Swagger and Sqlalchemy",
@@ -21,25 +21,25 @@ def validation_exception_handler(request, err):
     return JSONResponse(status_code=400, content={"message": f"{base_error_message}. Detail: {err}"})
 
 
-@app.post('/genre', tags=["Genre"],response_model=schemas.Genre,status_code=201)
-async def create_item(genre_request: schemas.GenreCreate, db: Session = Depends(get_db)):
+@app.post('/artists', tags=["Artist"],response_model=schemas.Artist,status_code=201)
+async def create_item(artist_request: schemas.CreateArtistRequest, db: Session = Depends(get_db)):
     """
-    Create a Genre and store it in the database
+    Create a Artist and store it in the database
     """
 
-    db_item = GenreRepo.fetch_by_name(db, name=genre_request.name)
+    db_item = ArtistRepo.fetch_by_name(db, name=artist_request.name)
     if db_item:
-        raise HTTPException(status_code=400, detail="Genre already exists!")
+        raise HTTPException(status_code=400, detail="Artist already exists!")
 
-    return await GenreRepo.create(db=db, genre=genre_request)
+    return await ArtistRepo.create(db=db, artist=artist_request)
 
 
-@app.get('/genres', tags=["Genre"],response_model=List[schemas.Genre])
-def get_all_genre(db: Session = Depends(get_db)):
+@app.get('/api/artists/', tags=["Artist"],response_model=List[schemas.Artist])
+def get_all_artists(db: Session = Depends(get_db)):
     """
     Get all the Items stored in database
     """
-    return GenreRepo.fetch_all(db)
+    return ArtistRepo.fetch_all(db)
 
 
 if __name__ == "__main__":
