@@ -1,3 +1,5 @@
+import uuid
+from uuid import UUID
 
 from sqlalchemy.orm import Session
 
@@ -7,7 +9,7 @@ import models, schemas
 class ArtistRepo:
 
     async def create(db: Session, artist: schemas.CreateArtistRequest):
-        db_artist = models.Artist(name=artist.name, genre=artist.genre)
+        db_artist = models.Artist(id=str(uuid.uuid4()), name=artist.name, genre=artist.genre)
         db.add(db_artist)
         db.commit()
         db.refresh(db_artist)
