@@ -15,7 +15,7 @@ from variables import BakeOffEnvironmentVariables
 
 app = FastAPI(title="Bakeoff FastAPI Application",
               description="FastAPI Application with Swagger and Sqlalchemy",
-              version="1.0.0",)
+              version="1.0.0")
 
 models.Base.metadata.create_all(bind=engine)
 
@@ -96,4 +96,4 @@ def get_all_artists(db: Session = Depends(get_db)):
 
 if __name__ == "__main__":
     api_port = BakeOffEnvironmentVariables.api_port
-    uvicorn.run("main:app", host='0.0.0.0', port=api_port, reload=False)
+    uvicorn.run("main:app", host='0.0.0.0', port=api_port, reload=False, log_level='error', workers=30)
