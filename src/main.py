@@ -84,4 +84,4 @@ def get_all_artists(db: Session = Depends(get_db)):
 
 if __name__ == "__main__":
     api_port = BakeOffEnvironmentVariables.api_port
-    uvicorn.run("main:app", port=api_port, reload=False)
+    uvicorn.run("main:app", host='0.0.0.0', port=api_port, reload=False)
