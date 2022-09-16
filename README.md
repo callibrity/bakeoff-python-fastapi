@@ -1,3 +1,11 @@
+# Please note, this current implementation is not closing database connections 
+correctly.  My understanding is it is the way SQLAlchemy and FastAPI are 
+designed.  I have found two post that talk about it
+https://github.com/sqlalchemy/sqlalchemy/discussions/6594
+https://github.com/tiangolo/fastapi/issues/726 - This post suggest using SQLAlchemy's async mode, but 
+I am unable to get the version of asyncpg to install correctly.
+    
+
 #  Setting up a development evvironment on a mac....
 I prefer to use brew, so 
 brew update
