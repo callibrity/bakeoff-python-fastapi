@@ -9,7 +9,7 @@ import models, schemas
 
 class ArtistRepo:
 
-    async def create(db: Session, artist: schemas.CreateArtistRequest):
+    def create(db: Session, artist: schemas.CreateArtistRequest):
         db_artist = models.Artist(id=str(uuid.uuid4()), name=artist.name, genre=artist.genre)
         db.add(db_artist)
         db.commit()
@@ -25,12 +25,12 @@ class ArtistRepo:
     def fetch_all(db: Session, skip: int = 0, limit: int = 100):
         return db.query(models.Artist).offset(skip).limit(limit).all()
 
-    async def delete(db: Session,_id:int):
+    def delete(db: Session,_id:int):
         db_artist= db.query(models.Artist).filter_by(id=_id).first()
         db.delete(db_artist)
         db.commit()
 
-    async def update(db: Session, artist: schemas.UpdateArtistRequest):
+    def update(db: Session, artist: schemas.UpdateArtistRequest):
         db_artist = models.Artist(id=artist.id, name=artist.name, genre=artist.genre)
         db_updated_artist = db.merge(db_artist)
         db.commit()
